@@ -11,8 +11,12 @@ export const useAuth = () => {
   return context;
 };
 
-// Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:8000/api';
+// Configure axios defaults - handle both development and production
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? process.env.REACT_APP_API_URL || 'https://your-backend-url.herokuapp.com/api'
+  : 'http://localhost:8000/api';
+
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const AuthProvider = ({ children }) => {

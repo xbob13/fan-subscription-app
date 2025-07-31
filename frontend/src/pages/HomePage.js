@@ -6,6 +6,7 @@ const HomePage = () => {
   const [featuredCreators, setFeaturedCreators] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -22,6 +23,31 @@ const HomePage = () => {
       setCategories(categoriesResponse.data);
     } catch (error) {
       console.error('Failed to fetch data:', error);
+      setError('Unable to load data from server');
+      
+      // Set fallback data for demo purposes
+      setCategories([
+        { key: 'fitness', label: 'Fitness & Health' },
+        { key: 'cooking', label: 'Cooking & Recipes' },
+        { key: 'art', label: 'Art & Design' },
+        { key: 'music', label: 'Music & Entertainment' },
+        { key: 'lifestyle', label: 'Lifestyle & Fashion' },
+        { key: 'education', label: 'Education & Tutorials' },
+        { key: 'adult', label: 'Adult Content' }
+      ]);
+      
+      setFeaturedCreators([
+        {
+          id: 1,
+          display_name: 'Demo Creator',
+          user: { username: 'demo_creator', profile_picture: null },
+          description: 'This is a demo creator profile. Connect your backend to see real data.',
+          subscription_price: 9.99,
+          subscriber_count: 1250,
+          cover_image: null,
+          category: 'lifestyle'
+        }
+      ]);
     } finally {
       setLoading(false);
     }
@@ -37,6 +63,14 @@ const HomePage = () => {
 
   return (
     <div className="space-y-12">
+      {/* Error Message */}
+      {error && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 text-yellow-800">
+          <p className="font-medium">Demo Mode</p>
+          <p className="text-sm">{error}. Showing demo data below.</p>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="text-center py-12 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">
         <h1 className="text-4xl font-bold mb-4">
@@ -46,10 +80,10 @@ const HomePage = () => {
           Subscribe to exclusive content, send tips, and connect directly with creators you love.
         </p>
         <div className="space-x-4">
-          <Link to="/register" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+          <Link to="/register" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
             Start Exploring
           </Link>
-          <Link to="/register" className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600">
+          <Link to="/register" className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 inline-block">
             Become a Creator
           </Link>
         </div>
