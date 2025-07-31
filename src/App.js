@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 import HomePage from './pages/HomePage';
+import TestPage from './pages/TestPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreatorDashboard from './pages/CreatorDashboard';
@@ -30,6 +31,7 @@ function App() {
           <main className="container mx-auto px-4 py-8">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/test" element={<TestPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route 
